@@ -13,7 +13,7 @@ import (
 
 func main() {
 	e := gin.Default()
-	e.Use(middleware.StartTrace(), middleware.LogAccess())
+	e.Use(middleware.StartTrace(), middleware.LogAccess(), middleware.GinPanicRecovery())
 
 	e.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -38,6 +38,12 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{
 			"max_idle": config.Conf.DB.MaxIdle,
 		})
+	})
+
+	e.GET("/panic", func(c *gin.Context) {
+		var m map[int]int
+		m[1] = 1
+		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": m})
 	})
 
 	fmt.Println("listen on 9999")
