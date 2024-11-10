@@ -13,7 +13,7 @@ import (
 
 func main() {
 	e := gin.Default()
-	e.Use(middleware.StartTrace())
+	e.Use(middleware.StartTrace(), middleware.LogAccess())
 
 	e.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -31,6 +31,12 @@ func main() {
 		log.New(c).Info("log test", "key", "keyValue", "val", 2)
 		c.JSON(http.StatusOK, gin.H{
 			"max_life_time": config.Conf.DB.MaxLiftTime,
+		})
+	})
+
+	e.POST("/access", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"max_idle": config.Conf.DB.MaxIdle,
 		})
 	})
 

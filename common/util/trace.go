@@ -15,7 +15,7 @@ func GenerateSpanID(addr string) string {
 	ip := strAddr[0]
 	ipLong, _ := Ip2Long(ip)
 	times := uint64(time.Now().UnixNano())
-	rand.Seed(time.Now().UnixNano())
+	// rand.Seed(time.Now().UnixNano())
 	spanId := ((times ^ uint64(ipLong)) << 32) | uint64(rand.Int31())
 	return strconv.FormatUint(spanId, 16)
 }
