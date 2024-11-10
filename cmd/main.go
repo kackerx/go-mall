@@ -7,11 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/middleware"
 	"github.com/kackerx/go-mall/config"
 )
 
 func main() {
 	e := gin.Default()
+	e.Use(middleware.StartTrace())
 
 	e.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -26,9 +28,7 @@ func main() {
 	})
 
 	e.GET("/log", func(c *gin.Context) {
-		for i := 0; i < 100; i++ {
-			log.ZapTest()
-		}
+		log.New(c).Info("log test", "key", "keyValue", "val", 2)
 		c.JSON(http.StatusOK, gin.H{
 			"max_life_time": config.Conf.DB.MaxLiftTime,
 		})
