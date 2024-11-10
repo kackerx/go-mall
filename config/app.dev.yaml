@@ -1,0 +1,13 @@
+app:
+  env: dev
+  name: go-mall
+  log:
+    path: "/tmp/applog/go-mall.log"
+    max_size: 1
+    max_age: 60
+db:
+  type: mysql
+  dsn: "mysql"
+  max_open: 100
+  max_idle: 10
+  max_life_time: 300
