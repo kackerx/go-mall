@@ -1,11 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/kackerx/go-mall/common/errcode"
 	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/middleware"
 	"github.com/kackerx/go-mall/config"
@@ -44,6 +46,23 @@ func main() {
 		var m map[int]int
 		m[1] = 1
 		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": m})
+	})
+
+	e.GET("/customerr", func(c *gin.Context) {
+		// 使用Wrap包装错误, 生成项目错误
+		err := errors.New("dao error")
+		appErr := errcode.Wrap("包装错误", err)
+		bAppErr := errcode.Wrap("再包装错误", appErr)
+		log.New(c).Error("记录错误", "err", bAppErr)
+
+		// 预定义的错误, 追加错误根因
+		err = errors.New("domain err")
+		apiErr := errcode.ErrServer.WithCause(err)
+		log.New(c).Error("API错误", "err", apiErr)
+		c.JSON(apiErr.HttpStatusCode(), gin.H{
+			"code": apiErr.Code(),
+			"msg":  apiErr.Msg(),
+		})
 	})
 
 	fmt.Println("listen on 9999")

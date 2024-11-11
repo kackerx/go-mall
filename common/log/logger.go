@@ -67,7 +67,7 @@ func (l *Logger) log(lvl zapcore.Level, msg string, kv ...any) {
 }
 
 func (l *Logger) Debug(msg string, kv ...any) {
-	l.log(zap.InfoLevel, msg, kv)
+	l.log(zap.DebugLevel, msg, kv...)
 }
 
 func (l *Logger) Info(msg string, kv ...any) {
@@ -75,11 +75,11 @@ func (l *Logger) Info(msg string, kv ...any) {
 }
 
 func (l *Logger) Warn(msg string, kv ...any) {
-	l.log(zap.InfoLevel, msg, kv)
+	l.log(zap.WarnLevel, msg, kv...)
 }
 
 func (l *Logger) Error(msg string, kv ...any) {
-	l.log(zap.InfoLevel, msg, kv)
+	l.log(zap.ErrorLevel, msg, kv...)
 }
 
 // getLoggerCallerInfo 获取函数调用者的信息
