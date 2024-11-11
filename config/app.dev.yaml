@@ -5,6 +5,9 @@ app:
     path: "/tmp/applog/go-mall.log"
     max_size: 1
     max_age: 60
+  pagination:
+    default_size: 20
+    max_size: 100
 db:
   type: mysql
   dsn: "mysql"

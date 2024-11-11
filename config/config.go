@@ -10,9 +10,15 @@ type Config struct {
 }
 
 type App struct {
-	Name string `mapstructure:"name"`
-	Env  string `mapstructure:"env"`
-	Log  *Log
+	Name       string `mapstructure:"name"`
+	Env        string `mapstructure:"env"`
+	Log        *Log
+	Pagination *Pagination
+}
+
+type Pagination struct {
+	DefaultSize int `mapstructure:"default_size"`
+	MaxSize     int `mapstructure:"max_size"`
 }
 
 type Log struct {

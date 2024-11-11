@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
 	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/middleware"
@@ -63,6 +64,29 @@ func main() {
 			"code": apiErr.Code(),
 			"msg":  apiErr.Msg(),
 		})
+	})
+
+	e.GET("/resperr", func(c *gin.Context) {
+		baseErr := errors.New("dao err")
+		err := errcode.Wrap("getUserService error", baseErr)
+		app.NewResponse(c).Error(errcode.ErrServer.WithCause(err))
+	})
+
+	e.GET("/respsuccess", func(c *gin.Context) {
+		data := []struct {
+			Name string
+			Age  int
+		}{
+			{
+				Name: "kacker",
+				Age:  28,
+			},
+		}
+
+		pagination := app.NewPagination(c).SetTotal(100)
+		app.NewResponse(c).
+			SetPagination(pagination).
+			Success(data)
 	})
 
 	fmt.Println("listen on 9999")
