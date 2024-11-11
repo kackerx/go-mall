@@ -1,5 +1,7 @@
 package errcode
 
+var codes = map[int]struct{}{}
+
 // 预定义的错误是最终控制器层返回给请求的客户端的, 会封装统一的响应组件来处理
 var (
 	Success            = newError(0, "success")

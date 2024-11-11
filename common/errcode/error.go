@@ -8,6 +8,18 @@ import (
 	"runtime"
 )
 
+/*
+*
+* 第三方组件不确定是什么err, 用Wrap包装一下且返回500
+* 直到是什么类型的错误的话用预定义错误且追加根因方式, WithCause
+*
+* Handle Errors Once
+* 底层(Dao, 基础设施层): 抛出错误
+* 中层(领域层, 应用层): 包装错误
+* 上层(控制器接口层): 日志记录错误, errors.Is区分错误
+*
+ */
+
 type AppError struct {
 	code     int    `json:"code"`
 	msg      string `json:"msg"`
@@ -44,11 +56,14 @@ func (e *AppError) Error() string {
 }
 
 func newError(code int, msg string) *AppError {
-	return &AppError{
-		code:  code,
-		msg:   msg,
-		cause: nil,
+	if code > -1 {
+		if _, ok := codes[code]; ok {
+			panic(fmt.Sprintf("预定义错误码不能重复: %d", code))
+		}
 	}
+
+	codes[code] = struct{}{}
+	return &AppError{code: code, msg: msg, cause: nil}
 }
 
 func (e *AppError) Code() int {
@@ -87,7 +102,7 @@ func (e *AppError) WithCause(err error) *AppError {
 	return e
 }
 
-// Wrap 底层错误包装成应用层错误
+// Wrap 底层错误包装成应用层错误, 当调用第三方组件不确定是什么err时Wrap一下, 返回500
 func Wrap(msg string, err error) *AppError {
 	if err == nil {
 		return nil
