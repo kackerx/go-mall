@@ -28,7 +28,12 @@ type Log struct {
 }
 
 type DB struct {
-	Type        string `mapstructure:"type"`
+	Type   string           `mapstructure:"type"`
+	Master *DBConnectOption `mapstructure:"master"`
+	Slave  *DBConnectOption `mapstructure:"slave"`
+}
+
+type DBConnectOption struct {
 	Dsn         string `mapstructure:"dsn"`
 	MaxOpen     int    `mapstructure:"max_open"`
 	MaxIdle     int    `mapstructure:"max_idle"`

@@ -10,7 +10,13 @@ app:
     max_size: 100
 db:
   type: mysql
-  dsn: "mysql"
-  max_open: 100
-  max_idle: 10
-  max_life_time: 300
+  master:
+    dsn: root:Wasd4044@tcp(127.0.0.1:3306)/go_mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+    max_open: 100
+    max_idle: 10
+    max_life_time: 5
+  slave:
+    dsn: root:Wasd4044@tcp(127.0.0.1:3306)/go_mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+    max_open: 100 # 100或200
+    max_idle: 20 # max_open的25%-50%
+    max_life_time: 5 # 连接空闲多久后关闭连接最大生命周期, 通常5-30分钟
