@@ -10,6 +10,7 @@ import (
 	"github.com/kackerx/go-mall/common/errcode"
 	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/dal/dao"
+	"github.com/kackerx/go-mall/library"
 	"github.com/kackerx/go-mall/logic/appservice"
 	"github.com/kackerx/go-mall/logic/domainservice"
 )
@@ -73,4 +74,14 @@ func TestCreateDemoOrder(c *gin.Context) {
 	}
 
 	app.NewResponse(c).Success(order)
+}
+
+func TestWhoisLibReq(c *gin.Context) {
+	detail, err := library.NewWhoisLib().GetHostIPDetail(c)
+	if err != nil {
+		app.NewResponse(c).Error(errcode.ErrServer.WithCause(err))
+		return
+	}
+
+	app.NewResponse(c).Success(detail)
 }

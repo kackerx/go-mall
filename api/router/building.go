@@ -13,4 +13,5 @@ func RegisterBuildingRoutes(rg *gin.RouterGroup) {
 	g.GET("resperr", handler.TestRespErr)
 	g.GET("/respsuccess", handler.TestRespSuccess)
 	g.POST("/demoorder/add", handler.TestCreateDemoOrder)
+	g.GET("/whois", handler.TestWhoisLibReq)
 }
