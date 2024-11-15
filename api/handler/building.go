@@ -5,9 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
 	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/dal/dao"
+	"github.com/kackerx/go-mall/logic/appservice"
+	"github.com/kackerx/go-mall/logic/domainservice"
 )
 
 func TestErr(c *gin.Context) {
@@ -48,4 +52,25 @@ func TestRespSuccess(c *gin.Context) {
 	app.NewResponse(c).
 		SetPagination(pagination).
 		Success(data)
+}
+
+func TestCreateDemoOrder(c *gin.Context) {
+	req := new(request.DemoOrderCreateReq)
+	if err := c.ShouldBind(req); err != nil {
+		app.NewResponse(c).Error(errcode.ErrParams.WithCause(err))
+		return
+	}
+
+	req.UserID = 111
+	demoDao := dao.NewDemoDao(c)
+	domainSvc := domainservice.NewDemoDomainSvc(c, demoDao)
+	svc := appservice.NewDemoAppSvc(c, domainSvc)
+
+	order, err := svc.CreateDemoOrder(req)
+	if err != nil {
+		app.NewResponse(c).Error(errcode.ErrServer.WithCause(err))
+		return
+	}
+
+	app.NewResponse(c).Success(order)
 }

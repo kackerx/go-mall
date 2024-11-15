@@ -5,8 +5,16 @@ var (
 )
 
 type Config struct {
-	App *App
-	DB  *DB
+	App   *App
+	DB    *DB
+	Redis *Redis
+}
+
+type Redis struct {
+	Addr     string `mapstructure:"addr"`
+	Password string `mapstructure:"password"`
+	PoolSize int    `mapstructure:"pool_size"`
+	Db       int    `mapstructure:"db"`
 }
 
 type App struct {
