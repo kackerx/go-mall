@@ -150,3 +150,41 @@ func (us *UserDomainSvc) RegisterUser(ctx context.Context, user *do.UserBaseInfo
 
 	return us.userDao.CreateUser(ctx, user, bcryptPassword)
 }
+
+func (us *UserDomainSvc) LoginUser(ctx context.Context, userName, password, platform string) (tokenInfo *do.TokenInfo, err error) {
+	user, err := us.userDao.FindUserByUserName(ctx, userName)
+	if err != nil {
+		return nil, errcode.Wrap("UserDomainSvc LoginUser err", err)
+	}
+
+	if user.UserName == "" {
+		return nil, errcode.ErrUserNotRight
+	}
+
+	if !util.BcryptCompare(user.Password, password) {
+		return nil, errcode.ErrUserNotRight
+	}
+
+	return us.GenAuthToken(ctx, int64(user.ID), platform, "")
+}
+
+func (us *UserDomainSvc) LoginoutUser(ctx context.Context, userID int64, platform string) (err error) {
+	session, err := cache.GetUserPlatformSession(ctx, userID, platform)
+	if err != nil {
+		return errcode.Wrap("UserDomainSvc LoginoutUser GetUserPlatformSession err", err)
+	}
+
+	if err = cache.DelAccessToken(ctx, session.AccessToken); err != nil {
+		return errcode.Wrap("UserDomainSvc LoginoutUser DelAccessToken err", err)
+	}
+
+	if err = cache.DelRefreshToken(ctx, session.RefreshToken); err != nil {
+		return errcode.Wrap("UserDomainSvc LoginoutUser DelRefreshToken err", err)
+	}
+
+	if err = cache.DelUserSessionOnPlatform(ctx, userID, platform); err != nil {
+		return errcode.Wrap("UserDomainSvc LoginoutUser DelUserSessionOnPlatform err", err)
+	}
+
+	return
+}

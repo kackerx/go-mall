@@ -28,8 +28,9 @@ func AuthUser() gin.HandlerFunc {
 			return
 		}
 
-		c.Set("userID", tokenVerify.UserID)
-		c.Set("sessionID", tokenVerify.SessionID)
+		c.Set("user_id", tokenVerify.UserID)
+		c.Set("session_id", tokenVerify.SessionID)
+		c.Set("platform", tokenVerify.Platform)
 		c.Next()
 	}
 }
@@ -47,6 +48,7 @@ func VerifyAccessToken(ctx context.Context, accessToken string) (resp *do.TokenV
 		resp.Approved = true
 		resp.UserID = tokenInfo.UserID
 		resp.SessionID = tokenInfo.SessionID
+		resp.Platform = tokenInfo.Platform
 	}
 
 	return

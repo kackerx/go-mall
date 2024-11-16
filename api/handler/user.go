@@ -51,3 +51,41 @@ func (uh *UserHandler) RegisterUser(c *gin.Context) {
 
 	app.NewResponse(c).Success(&reply.UserRegisterResp{uid})
 }
+
+func (uh *UserHandler) LoginUser(c *gin.Context) {
+	req := new(request.UserLoginReq)
+
+	if err := c.ShouldBindJSON(&req.Body); err != nil {
+		app.NewResponse(c).Error(errcode.ErrParams.WithCause(err))
+		return
+	}
+
+	if err := c.ShouldBindHeader(&req.Header); err != nil {
+		app.NewResponse(c).Error(errcode.ErrParams.WithCause(err))
+		return
+	}
+
+	resp, err := uh.userAppSvc.UserLogin(c, req)
+	if err != nil {
+		if errors.Is(err, errcode.ErrUserNotRight) {
+			app.NewResponse(c).Error(errcode.ErrUserNotRight)
+		} else {
+			app.NewResponse(c).Error(errcode.ErrServer.WithCause(err))
+		}
+		return
+	}
+
+	app.NewResponse(c).Success(resp)
+}
+
+func (uh *UserHandler) LoginoutUser(c *gin.Context) {
+	uid := c.GetInt64("user_id")
+	platform := c.GetString("platform")
+
+	if err := uh.userAppSvc.UserLoginout(c, uid, platform); err != nil {
+		app.NewResponse(c).Error(errcode.ErrServer.WithCause(err))
+		return
+	}
+
+	app.NewResponse(c).SuccessOK()
+}

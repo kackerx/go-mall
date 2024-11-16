@@ -69,3 +69,19 @@ func (us *UserAppSvc) UserRegister(ctx context.Context, req *request.UserRegiste
 
 	return id, nil
 }
+
+func (us *UserAppSvc) UserLogin(ctx context.Context, req *request.UserLoginReq) (resp *reply.TokenResp, err error) {
+	tokenInfo, err := us.userDomainSvc.LoginUser(ctx, req.Body.UserName, req.Body.Password, req.Header.Platform)
+	if err != nil {
+		return
+	}
+
+	resp = new(reply.TokenResp)
+	util.Copy(resp, tokenInfo)
+	// todo: 登录成功的外围逻辑
+	return
+}
+
+func (us *UserAppSvc) UserLoginout(ctx context.Context, userID int64, platform string) (err error) {
+	return us.userDomainSvc.LoginoutUser(ctx, userID, platform)
+}

@@ -23,6 +23,7 @@ type UserBaseInfo struct {
 	ID        uint64    `json:"id,omitempty"`
 	Nickname  string    `json:"nickname,omitempty"`
 	UserName  string    `json:"user_name,omitempty"`
+	Password  string    `json:"password"`
 	Verified  uint      `json:"verified,omitempty"`
 	Avatar    string    `json:"avatar,omitempty"`
 	Slogan    string    `json:"slogan,omitempty"`
@@ -35,4 +36,5 @@ type TokenVerify struct {
 	Approved  bool   `json:"approved,omitempty"`
 	UserID    int64  `json:"user_id,omitempty"`
 	SessionID string `json:"session_id,omitempty"`
+	Platform  string `json:"platform"`
 }

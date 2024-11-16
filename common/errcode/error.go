@@ -97,9 +97,14 @@ func (e *AppError) HttpStatusCode() int {
 
 // WithCause AppError添加根因
 func (e *AppError) WithCause(err error) *AppError {
-	e.cause = err
-	e.occurred = getAppErrOccurredInfo()
-	return e
+	newErr := e.Clone()
+	newErr.cause = err
+	newErr.occurred = getAppErrOccurredInfo()
+	return newErr
+}
+
+func (e *AppError) Clone() *AppError {
+	return &AppError{e.code, e.msg, e.cause, e.occurred}
 }
 
 // Wrap 底层错误包装成应用层错误, 当调用第三方组件不确定是什么err时Wrap一下, 返回500
@@ -121,4 +126,17 @@ func getAppErrOccurredInfo() string {
 
 	funcName := runtime.FuncForPC(pc).Name()
 	return fmt.Sprintf("func: %s, file: %s, line: %d", funcName, file, line)
+}
+
+func (e *AppError) UnWrap() error {
+	return e.cause
+}
+
+func (e *AppError) Is(target error) bool {
+	targerErr, ok := target.(*AppError)
+	if !ok {
+		return false
+	}
+
+	return targerErr.code == e.code
 }
