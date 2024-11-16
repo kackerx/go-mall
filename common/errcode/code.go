@@ -13,3 +13,9 @@ var (
 	ErrForbidden       = newError(10000005, "未授权")
 	ErrTooManyRequests = newError(10000006, "请求过多")
 )
+
+var (
+	ErrUserInvalid      = newError(10000101, "用户异常")
+	ErrUserNameOccupied = newError(10000102, "用户名已经占用")
+	ErrUserNotRight     = newError(10000103, "用户或密码不正确")
+)

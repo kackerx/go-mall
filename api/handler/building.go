@@ -85,3 +85,31 @@ func TestWhoisLibReq(c *gin.Context) {
 
 	app.NewResponse(c).Success(detail)
 }
+
+func TestMakeToken(c *gin.Context) {
+	userDomainSvc := domainservice.NewUserDomainSvc()
+	userAppSvc := appservice.NewUserAppSvc(userDomainSvc)
+
+	resp, err := userAppSvc.GenToken(c)
+	if err != nil {
+		if errors.Is(err, errcode.ErrUserInvalid) {
+			log.New(c).Error("invalid user", "err", err)
+			app.NewResponse(c).Error(errcode.ErrUserInvalid)
+		} else {
+			var appErr *errcode.AppError
+			errors.As(err, &appErr)
+			app.NewResponse(c).Error(appErr)
+		}
+
+		return
+	}
+
+	app.NewResponse(c).Success(resp)
+}
+
+func TestGetToken(c *gin.Context) {
+	app.NewResponse(c).Success(map[string]any{
+		"user_id":    c.GetInt64("userID"),
+		"session_id": c.GetString("sessionID"),
+	})
+}
