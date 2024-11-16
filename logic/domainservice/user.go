@@ -9,10 +9,12 @@ import (
 	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/dal/cache"
+	"github.com/kackerx/go-mall/dal/dao"
 	"github.com/kackerx/go-mall/logic/do"
 )
 
 type UserDomainSvc struct {
+	userDao *dao.UserDao
 }
 
 func NewUserDomainSvc() *UserDomainSvc {
@@ -99,6 +101,7 @@ func (us *UserDomainSvc) RefreshToken(ctx context.Context, refreshToken string) 
 		return
 	}
 
+	// 用旧refreshToken获取对应session, 如果是被窃取的refreshToken, 延迟过期也能获取到, 但是和最新的已经不同了
 	session, err := cache.GetRefreshToken(ctx, refreshToken)
 	if err != nil || session == nil {
 		logger.Error("GetRefreshToken faild", "err", err)
@@ -128,4 +131,22 @@ func (us *UserDomainSvc) RefreshToken(ctx context.Context, refreshToken string) 
 	}
 
 	return tokenInfo, nil
+}
+
+func (us *UserDomainSvc) RegisterUser(ctx context.Context, user *do.UserBaseInfo, password string) (userID int64, err error) {
+	existUser, err := us.userDao.FindUserByUserName(ctx, user.UserName)
+	if err != nil {
+		return 0, errcode.Wrap("UserDomainSvc RegisterUser err", err)
+	}
+
+	if existUser.UserName != "" {
+		return 0, errcode.ErrUserNameOccupied
+	}
+
+	bcryptPassword, err := util.BcryptPassword(password)
+	if err != nil {
+		return 0, errcode.Wrap("UserDomainSvc RegisterUser BcryptPassword err", err)
+	}
+
+	return us.userDao.CreateUser(ctx, user, bcryptPassword)
 }

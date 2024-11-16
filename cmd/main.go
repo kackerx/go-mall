@@ -6,9 +6,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/kackerx/go-mall/api/handler"
 	"github.com/kackerx/go-mall/api/router"
 	"github.com/kackerx/go-mall/common/enum"
 	"github.com/kackerx/go-mall/config"
+	"github.com/kackerx/go-mall/logic/appservice"
+	"github.com/kackerx/go-mall/logic/domainservice"
 )
 
 func main() {
@@ -18,7 +21,12 @@ func main() {
 	}
 
 	e := gin.Default()
-	router.RegisterRoute(e)
+
+	baseHandler := handler.NewHandler()
+	userDomainSvc := domainservice.NewUserDomainSvc()
+	userAppSvc := appservice.NewUserAppSvc(userDomainSvc)
+	userHandler := handler.NewUserHandler(baseHandler, userAppSvc)
+	router.RegisterRoute(e, userHandler)
 
 	fmt.Println("listen on 9999")
 	if err := http.ListenAndServe(":9999", e); err != nil {

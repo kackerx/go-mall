@@ -2,10 +2,14 @@ package appservice
 
 import (
 	"context"
+	"errors"
 
 	"github.com/kackerx/go-mall/api/reply"
+	"github.com/kackerx/go-mall/api/request"
+	"github.com/kackerx/go-mall/common/errcode"
 	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
+	"github.com/kackerx/go-mall/logic/do"
 	"github.com/kackerx/go-mall/logic/domainservice"
 )
 
@@ -45,4 +49,23 @@ func (us *UserAppSvc) RefreshToken(ctx context.Context, refreshToken string) (re
 	}
 
 	return
+}
+
+func (us *UserAppSvc) UserRegister(ctx context.Context, req *request.UserRegisterReq) (int64, error) {
+	user := new(do.UserBaseInfo)
+	util.Copy(user, req)
+
+	id, err := us.userDomainSvc.RegisterUser(ctx, user, req.Password)
+	if err != nil {
+		if errors.Is(err, errcode.ErrUserNameOccupied) { // 用户名已存在不用额外的处理
+			return 0, err
+		}
+
+		// todo: 外围逻辑通知用户注册失败, 日志, 告警, 提示灯
+		return 0, err
+	}
+
+	// todo: 注册成功后的发消息通知, 事件推送, 或者直接跳转登录逻辑, 非核心的应用层的职责
+
+	return id, nil
 }
