@@ -6,6 +6,7 @@ import (
 
 	"github.com/kackerx/go-mall/common/enum"
 	"github.com/kackerx/go-mall/common/errcode"
+	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/dal/cache"
 	"github.com/kackerx/go-mall/logic/do"
@@ -58,6 +59,12 @@ func (us *UserDomainSvc) GenAuthToken(ctx context.Context, userID int64, platfor
 	userSession.AccessToken = accessToken
 	userSession.RefreshToken = refreshToken
 
+	// 删除旧token
+	if err = cache.DelOldSessionTokens(ctx, userSession); err != nil {
+		err = errcode.Wrap("DelOldSessionTokens err", err)
+		return
+	}
+
 	// 设置缓存
 	if err = cache.SetUserToken(ctx, userSession); err != nil {
 		err = errcode.Wrap("设置token缓存错误", err)
@@ -75,4 +82,50 @@ func (us *UserDomainSvc) GenAuthToken(ctx context.Context, userID int64, platfor
 		Duration:      int64(enum.AccessTokenDuration.Seconds()),
 		SrvCreateTime: time.Now(),
 	}, nil
+}
+
+func (us *UserDomainSvc) RefreshToken(ctx context.Context, refreshToken string) (resp *do.TokenInfo, err error) {
+	logger := log.New(ctx)
+	ok, err := cache.LockTokenRefresh(ctx, refreshToken)
+	defer cache.UnlockTokenRefresh(ctx, refreshToken)
+
+	if err != nil {
+		err = errcode.Wrap("设置refresh锁失败", err)
+		return
+	}
+
+	if !ok {
+		err = errcode.ErrTooManyRequests
+		return
+	}
+
+	session, err := cache.GetRefreshToken(ctx, refreshToken)
+	if err != nil || session == nil {
+		logger.Error("GetRefreshToken faild", "err", err)
+		err = errcode.ErrToken
+		return
+	}
+
+	platformSession, err := cache.GetUserPlatformSession(ctx, session.UserID, session.Platform)
+	if err != nil {
+		logger.Error("GetUserPlatformSession faild", "err", err)
+		err = errcode.ErrToken
+		return
+	}
+
+	// 请求刷新的re和session中的不一致, 说明re过时, 可能是re被窃取或者前端刷token并发控制问题
+	if platformSession.RefreshToken != refreshToken {
+		logger.Warn("ExpiredRefreshToken", "request_token", refreshToken, "new_token", platformSession.RefreshToken, "user_id", platformSession.UserID)
+		err = errcode.ErrToken
+		return
+	}
+
+	// 重新生成token
+	tokenInfo, err := us.GenAuthToken(ctx, session.UserID, session.Platform, session.SessionID)
+	if err != nil {
+		err = errcode.Wrap("GenUserAuthToken err", err)
+		return
+	}
+
+	return tokenInfo, nil
 }

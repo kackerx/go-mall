@@ -17,4 +17,5 @@ func RegisterBuildingRoutes(rg *gin.RouterGroup) {
 	g.GET("/whois", handler.TestWhoisLibReq)
 	g.GET("/gentoken", handler.TestMakeToken)
 	g.GET("/gettoken", middleware.AuthUser(), handler.TestGetToken)
+	g.GET("/refreshtoken", middleware.AuthUser(), handler.TestRefreshToken)
 }

@@ -113,3 +113,26 @@ func TestGetToken(c *gin.Context) {
 		"session_id": c.GetString("sessionID"),
 	})
 }
+
+func TestRefreshToken(c *gin.Context) {
+	refreshToken := c.Query("refresh_token")
+	if refreshToken == "" {
+		app.NewResponse(c).Error(errcode.ErrParams)
+		return
+	}
+
+	svc := domainservice.NewUserDomainSvc()
+	appSvc := appservice.NewUserAppSvc(svc)
+	token, err := appSvc.RefreshToken(c, refreshToken)
+	if err != nil {
+		if errors.Is(err, errcode.ErrTooManyRequests) {
+			app.NewResponse(c).Error(errcode.ErrTooManyRequests)
+		} else {
+			appErr := err.(*errcode.AppError)
+			app.NewResponse(c).Error(appErr)
+		}
+		return
+	}
+
+	app.NewResponse(c).Success(token)
+}

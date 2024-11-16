@@ -31,3 +31,18 @@ func (us *UserAppSvc) GenToken(ctx context.Context) (resp *reply.TokenResp, err 
 
 	return
 }
+
+func (us *UserAppSvc) RefreshToken(ctx context.Context, refreshToken string) (resp *reply.TokenResp, err error) {
+	token, err := us.userDomainSvc.RefreshToken(ctx, refreshToken)
+	if err != nil {
+		return nil, err
+	}
+
+	log.New(ctx).Info("token refresh success", "token", token)
+	resp = new(reply.TokenResp)
+	if err := util.Copy(resp, token); err != nil {
+		return nil, err
+	}
+
+	return
+}
