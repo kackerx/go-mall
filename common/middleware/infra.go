@@ -12,9 +12,17 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.opentelemetry.io/otel"
 
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/util"
+)
+
+// 定义上下文键
+const (
+	TraceIDKey = "trace_id"
+	SpanIDKey  = "span_id"
+	TracerName = "gmall-service"
 )
 
 func StartTrace() gin.HandlerFunc {
@@ -31,6 +39,32 @@ func StartTrace() gin.HandlerFunc {
 		c.Set("traceid", traceID)
 		c.Set("spanid", spanID)
 		c.Set("pspanid", pSpanID)
+		c.Next()
+	}
+}
+
+// TracingMiddleware Gin的链路追踪中间件
+func TracingMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// 获取tracer
+		tracer := otel.Tracer(TracerName)
+
+		// 创建span
+		ctx, span := tracer.Start(c.Request.Context(), c.Request.URL.Path)
+		defer span.End()
+
+		// 获取trace信息
+		traceID := span.SpanContext().TraceID().String()
+		spanID := span.SpanContext().SpanID().String()
+
+		// 将trace信息保存到gin上下文
+		c.Set(TraceIDKey, traceID)
+		c.Set(SpanIDKey, spanID)
+
+		// 将context保存到gin上下文
+		c.Request = c.Request.WithContext(ctx)
+
+		// 处理请求
 		c.Next()
 	}
 }
@@ -69,7 +103,7 @@ func accessLog(c *gin.Context, accessType string, dur time.Duration, body []byte
 	query := req.URL.RawQuery
 	path := req.URL.Path
 	// todo: token记录
-	log.New(c).Info("AccessLog",
+	logger.New(c).Info("AccessLog",
 		"type", accessType,
 		"ip", c.ClientIP(),
 		"method", req.Method,
@@ -99,14 +133,14 @@ func GinPanicRecovery() gin.HandlerFunc {
 
 				httpRequest, _ := httputil.DumpRequest(c.Request, false)
 				if brokenPipe {
-					log.New(c).Error("http request broken pipe", "path", c.Request.URL.Path, "error", err, "request", string(httpRequest))
+					logger.New(c).Error("http request broken pipe", "path", c.Request.URL.Path, "error", err, "request", string(httpRequest))
 					// If the connection is dead, we can't write a status to it.
 					c.Error(err.(error)) // nolint: errcheck
 					c.Abort()
 					return
 				}
 
-				log.New(c).Error("http_request_panic", "path", c.Request.URL.Path, "error", err, "request", string(httpRequest), "stack", string(debug.Stack()))
+				logger.New(c).Error("http_request_panic", "path", c.Request.URL.Path, "error", err, "request", string(httpRequest), "stack", string(debug.Stack()))
 
 				c.AbortWithError(http.StatusInternalServerError, err.(error))
 			}

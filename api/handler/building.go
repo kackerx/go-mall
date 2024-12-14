@@ -8,7 +8,6 @@ import (
 	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/dal/dao"
 	"github.com/kackerx/go-mall/library"
 	"github.com/kackerx/go-mall/logic/appservice"
@@ -20,12 +19,12 @@ func TestErr(c *gin.Context) {
 	err := errors.New("dao error")
 	appErr := errcode.Wrap("包装错误", err)
 	bAppErr := errcode.Wrap("再包装错误", appErr)
-	log.New(c).Error("记录错误", "err", bAppErr)
+	logger.New(c).Error("记录错误", "err", bAppErr)
 
 	// 预定义的错误, 追加错误根因
 	err = errors.New("domain err")
 	apiErr := errcode.ErrServer.WithCause(err)
-	log.New(c).Error("API错误", "err", apiErr)
+	logger.New(c).Error("API错误", "err", apiErr)
 	c.JSON(apiErr.HttpStatusCode(), gin.H{
 		"code": apiErr.Code(),
 		"msg":  apiErr.Msg(),
@@ -93,7 +92,7 @@ func TestMakeToken(c *gin.Context) {
 	resp, err := userAppSvc.GenToken(c)
 	if err != nil {
 		if errors.Is(err, errcode.ErrUserInvalid) {
-			log.New(c).Error("invalid user", "err", err)
+			logger.New(c).Error("invalid user", "err", err)
 			app.NewResponse(c).Error(errcode.ErrUserInvalid)
 		} else {
 			var appErr *errcode.AppError

@@ -13,13 +13,13 @@ import (
 
 	"github.com/kackerx/go-mall/common/enum"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/logic/do"
 )
 
 // SetUserToken 设置用户的AccessToken 和 RefreshToken 缓存
 func SetUserToken(ctx context.Context, session *do.SessionInfo) error {
-	logger := log.New(ctx)
+	logger := logger.New(ctx)
 	err := setAccessToken(ctx, session)
 	if err != nil {
 		logger.Error("redis error", "err", err)
@@ -38,7 +38,7 @@ func SetUserSession(ctx context.Context, session *do.SessionInfo) error {
 	sessionDataBytes, _ := json.Marshal(session)
 	err := Redis().HSet(ctx, redisKey, session.Platform, sessionDataBytes).Err()
 	if err != nil {
-		log.New(ctx).Error("redis error", "err", err)
+		logger.New(ctx).Error("redis error", "err", err)
 		return err
 	}
 	return err
@@ -89,7 +89,7 @@ func setAccessToken(ctx context.Context, session *do.SessionInfo) error {
 	redisKey := fmt.Sprintf(enum.RedisKeyAccessToken, session.AccessToken)
 	sessionDataBytes, _ := json.Marshal(session)
 	res, err := Redis().Set(ctx, redisKey, sessionDataBytes, enum.AccessTokenDuration).Result()
-	log.New(ctx).Debug("redis debug", "res", res, "err", err)
+	logger.New(ctx).Debug("redis debug", "res", res, "err", err)
 	return err
 }
 
@@ -216,7 +216,7 @@ func SetPasswordResetToken(ctx context.Context, userId int64, token, code string
 func GetPasswordResetToken(ctx context.Context, token string) (userId int64, code string, err error) {
 	redisKey := fmt.Sprintf(enum.RediskeyPasswordresetToken, token)
 	val, redisErr := Redis().Get(ctx, redisKey).Result()
-	if redisErr != nil && redisErr != redis.Nil {
+	if redisErr != nil && !errors.Is(redisErr, redis.Nil) {
 		err = redisErr
 		return
 	}

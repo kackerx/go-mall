@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"gorm.io/gorm/logger"
-
-	"github.com/kackerx/go-mall/common/log"
 )
 
 type GormLogger struct {
@@ -18,15 +16,15 @@ func (g *GormLogger) LogMode(level logger.LogLevel) logger.Interface {
 }
 
 func (g *GormLogger) Info(ctx context.Context, s string, data ...interface{}) {
-	log.New(ctx).Info(s, "data", data)
+	logger.New(ctx).Info(s, "data", data)
 }
 
 func (g *GormLogger) Warn(ctx context.Context, s string, data ...interface{}) {
-	log.New(ctx).Warn(s, "data", data)
+	logger.New(ctx).Warn(s, "data", data)
 }
 
 func (g *GormLogger) Error(ctx context.Context, s string, data ...interface{}) {
-	log.New(ctx).Error(s, "data", data)
+	logger.New(ctx).Error(s, "data", data)
 }
 
 func (g *GormLogger) Trace(ctx context.Context, begin time.Time, fc func() (sql string, rowsAffected int64), err error) {
@@ -35,7 +33,7 @@ func (g *GormLogger) Trace(ctx context.Context, begin time.Time, fc func() (sql 
 	// 错误日志
 	sql, rows := fc()
 	if err != nil {
-		log.New(ctx).Error(
+		logger.New(ctx).Error(
 			"SQL ERROR",
 			"sql", sql,
 			"rows", rows,
@@ -45,9 +43,9 @@ func (g *GormLogger) Trace(ctx context.Context, begin time.Time, fc func() (sql 
 
 	// 慢日志
 	if dura > g.SlowThreshold.Milliseconds() {
-		log.New(ctx).Warn("SQL SLOW", "sql", sql, "rows", rows, "dur(ms)", dura)
+		logger.New(ctx).Warn("SQL SLOW", "sql", sql, "rows", rows, "dur(ms)", dura)
 	} else {
-		log.New(ctx).Debug("SQL DEBUG", "sql", sql, "rows", rows, "dur(ms)", dura)
+		logger.New(ctx).Debug("SQL DEBUG", "sql", sql, "rows", rows, "dur(ms)", dura)
 	}
 }
 

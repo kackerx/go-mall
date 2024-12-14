@@ -7,7 +7,6 @@ import (
 	"github.com/kackerx/go-mall/api/reply"
 	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/logic/do"
 	"github.com/kackerx/go-mall/logic/domainservice"
@@ -26,7 +25,7 @@ func (us *UserAppSvc) GenToken(ctx context.Context) (resp *reply.TokenResp, err 
 		return nil, err
 	}
 
-	log.New(ctx).Info("gen token success", tokenInfo)
+	logger.New(ctx).Info("gen token success", tokenInfo)
 
 	resp = new(reply.TokenResp)
 	if err = util.Copy(resp, tokenInfo); err != nil {
@@ -42,7 +41,7 @@ func (us *UserAppSvc) RefreshToken(ctx context.Context, refreshToken string) (re
 		return nil, err
 	}
 
-	log.New(ctx).Info("token refresh success", "token", token)
+	logger.New(ctx).Info("token refresh success", "token", token)
 	resp = new(reply.TokenResp)
 	if err := util.Copy(resp, token); err != nil {
 		return nil, err

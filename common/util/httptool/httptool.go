@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
 )
 
@@ -29,7 +28,7 @@ func Request(method, url string, options ...Option) (httpStatusCode int, resp []
 	reqOption.headers["traceid"] = traceID
 	reqOption.headers["spanid"] = spanID
 
-	logger := log.New(reqOption.ctx)
+	logger := logger.New(reqOption.ctx)
 	defer func() {
 		if err != nil {
 			logger.Error("HTTP_REQUEST_ERROR_LOG", "method", method, "url", url, "body", reqOption.data, "reply", resp, "err", err)

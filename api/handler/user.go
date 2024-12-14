@@ -9,7 +9,7 @@ import (
 	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/logic/appservice"
 	"github.com/kackerx/go-mall/logic/do"
@@ -32,7 +32,7 @@ func (uh *UserHandler) RegisterUser(c *gin.Context) {
 	}
 
 	if !util.PasswordComplexityVerify(userRegisterReq.Password) {
-		log.New(c).Warn("handler RegisterUser", "err", "密码复杂度不足", "password", userRegisterReq.Password)
+		logger.New(c).Warn("handler RegisterUser", "err", "密码复杂度不足", "password", userRegisterReq.Password)
 		app.NewResponse(c).Error(errcode.ErrParams)
 		return
 	}

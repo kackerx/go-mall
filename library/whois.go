@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/util/httptool"
 )
 
@@ -31,7 +31,7 @@ func (w *WhoisLib) GetHostIPDetail(ctx context.Context) (detail *WhoisDetail, er
 		"Host":       "ipwho.is",
 	}))
 	if err != nil {
-		log.New(ctx).Error("ipwho.is get detail error", "err", err, "status", code)
+		logger.New(ctx).Error("ipwho.is get detail error", "err", err, "status", code)
 		return nil, err
 	}
 

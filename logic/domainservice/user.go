@@ -6,7 +6,6 @@ import (
 
 	"github.com/kackerx/go-mall/common/enum"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/dal/cache"
 	"github.com/kackerx/go-mall/dal/dao"
@@ -87,7 +86,7 @@ func (us *UserDomainSvc) GenAuthToken(ctx context.Context, userID int64, platfor
 }
 
 func (us *UserDomainSvc) RefreshToken(ctx context.Context, refreshToken string) (resp *do.TokenInfo, err error) {
-	logger := log.New(ctx)
+	logger := logger.New(ctx)
 	ok, err := cache.LockTokenRefresh(ctx, refreshToken)
 	defer cache.UnlockTokenRefresh(ctx, refreshToken)
 

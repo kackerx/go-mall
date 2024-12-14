@@ -1,4 +1,4 @@
-package log
+package logger
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"path"
 	"runtime"
 
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -18,17 +19,28 @@ type Logger struct {
 	_logger *zap.Logger
 }
 
+// 从上下文获取trace信息的辅助函数
+func getTraceInfo(ctx context.Context) (string, string) {
+	if span := trace.SpanFromContext(ctx); span != nil {
+		spanCtx := span.SpanContext()
+		return spanCtx.TraceID().String(),
+			spanCtx.SpanID().String()
+	}
+	return "", ""
+}
+
 func New(ctx context.Context) *Logger {
 	var (
 		traceID, spanID, pspanID string
 	)
 
-	if ctx.Value("traceid") != nil {
-		traceID = ctx.Value("traceid").(string)
-	}
-	if ctx.Value("spanid") != nil {
-		spanID = ctx.Value("spanid").(string)
-	}
+	// if ctx.Value("traceid") != nil {
+	// 	traceID = ctx.Value("traceid").(string)
+	// }
+	// if ctx.Value("spanid") != nil {
+	// 	spanID = ctx.Value("spanid").(string)
+	// }
+	traceID, spanID = getTraceInfo(ctx)
 	if ctx.Value("pspanid") != nil {
 		pspanID = ctx.Value("pspanid").(string)
 	}

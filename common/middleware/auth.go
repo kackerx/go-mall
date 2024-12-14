@@ -7,7 +7,7 @@ import (
 
 	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/dal/cache"
 	"github.com/kackerx/go-mall/logic/do"
 )
@@ -39,7 +39,7 @@ func AuthUser() gin.HandlerFunc {
 func VerifyAccessToken(ctx context.Context, accessToken string) (resp *do.TokenVerify, err error) {
 	tokenInfo, err := cache.GetAccessToken(ctx, accessToken)
 	if err != nil {
-		log.New(ctx).Error("GetAccessToken err", "err", err)
+		logger.New(ctx).Error("GetAccessToken err", "err", err)
 		return nil, err
 	}
 

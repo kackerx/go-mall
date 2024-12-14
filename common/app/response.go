@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/kackerx/go-mall/common/errcode"
-	"github.com/kackerx/go-mall/common/log"
+	"github.com/kackerx/go-mall/common/logger"
 )
 
 type response struct {
@@ -39,7 +39,7 @@ func (r *response) Error(err *errcode.AppError) {
 	}
 
 	// 兜底错误响应日志
-	log.New(r.ctx).Error("api_response_error", "error", err)
+	logger.New(r.ctx).Error("api_response_error", "error", err)
 	r.ctx.JSON(err.HttpStatusCode(), r)
 }
 
