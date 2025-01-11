@@ -15,7 +15,9 @@ import (
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
+
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
+	tc "go.opentelemetry.io/otel/trace"
 
 	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/middleware"
@@ -76,12 +78,28 @@ func main() {
 	if err := e.Run(":9999"); err != nil {
 		panic(err)
 	}
+
+}
+
+// 错误处理辅助函数
+func recordError(span tc.Span, err error, msg string) {
+	span.RecordError(err, tc.WithAttributes(
+		attribute.String("error.message", msg),
+		attribute.String("error.type", fmt.Sprintf("%T", err)),
+		attribute.String("error.stack", fmt.Sprintf("%+v", err)), // 如果使用pkg/errors
+	))
+	span.SetStatus(codes.Error, msg)
 }
 
 func Exec(ctx context.Context) []string {
 	tr := otel.Tracer("mxshop")
 	ctx, span := tr.Start(ctx, "Exec")
 	defer span.End()
+
+	if true {
+		recordError(span, fmt.Errorf("exec error"), "exec error msg")
+		return nil
+	}
 
 	logger.New(ctx).Info("exec", "fn", "exec")
 
