@@ -6,6 +6,7 @@ import (
 	"github.com/kackerx/go-mall/api/reply"
 	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/errcode"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/util"
 	"github.com/kackerx/go-mall/dal/cache"
 	"github.com/kackerx/go-mall/logic/do"

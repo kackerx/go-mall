@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/kackerx/go-mall/common/errcode"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/common/util"
 )
 

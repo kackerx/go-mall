@@ -4,14 +4,16 @@ import (
 	"context"
 	"time"
 
-	"gorm.io/gorm/logger"
+	gormLogger "gorm.io/gorm/logger"
+
+	"github.com/kackerx/go-mall/common/logger"
 )
 
 type GormLogger struct {
 	SlowThreshold time.Duration
 }
 
-func (g *GormLogger) LogMode(level logger.LogLevel) logger.Interface {
+func (g *GormLogger) LogMode(level gormLogger.LogLevel) gormLogger.Interface {
 	return &GormLogger{}
 }
 

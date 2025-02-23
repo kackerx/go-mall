@@ -29,7 +29,8 @@ func init() {
 
 func initDB(option *config.DBConnectOption) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(option.Dsn), &gorm.Config{
-		Logger: NewGormLogger(500 * time.Millisecond),
+		Logger:                                   NewGormLogger(500 * time.Millisecond),
+		DisableForeignKeyConstraintWhenMigrating: true,
 	})
 	if err != nil {
 		panic(err)
