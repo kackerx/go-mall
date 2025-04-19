@@ -13,9 +13,9 @@ var (
 )
 
 func init() {
-	if err := db.AutoMigrate(&User{}, &Company{}, &Card{}, &Post{}, &Language{}); err != nil {
-		panic(err)
-	}
+	// if err := db.AutoMigrate(&User{}, &Company{}, &Card{}, &Post{}, &Language{}, &CompanyExtra{}); err != nil {
+	// 	panic(err)
+	// }
 }
 
 func addUser() error {
@@ -38,7 +38,86 @@ func main() {
 	// hasMany()
 	// Joins()
 	// delAssociations()
-	delManyToManyAssociations()
+	// delManyToManyAssociations()
+	// Joinss()
+	// ManyToMany()
+	// PrintSQL()
+	// Or()
+
+	AssoQuery()
+}
+
+func PrintSQL() {
+	user := []*User{
+		{ID: 10, Name: "jinzhu"},
+		{ID: 11, Name: "jinzhu"},
+	}
+	// err := db.Session(&gorm.Session{DryRun: true}).Model(&user).Association("Languages").fir(&user.Languages)
+	db = db.Session(&gorm.Session{DryRun: true}).Model(&user).Create(&user)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// sql := db.Statement.SQL.String()
+	toSQL := db.Statement.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return tx.Create(&user)
+	})
+	// fmt.Println(sql)
+	fmt.Println(toSQL)
+}
+
+func Or() {
+	user := &User{ID: 3}
+
+	sql := db.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return tx.Or("company_id = ?", 100).
+			Or("age != ?", "jj").
+			Where("name = ?", "heh").
+			Where("name = ?", "h123").
+			Find(&user)
+	})
+
+	fmt.Println(sql)
+	fmt.Println(user)
+}
+
+func AssoQuery() {
+	user := &User{ID: 3}
+
+	var ids []int
+	err := db.Table("user_languages").Where("user_id = ?", user.ID).Pluck("language_id", &ids).Error
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(user, ids)
+}
+
+func ManyToMany() {
+	user := &User{ID: 3}
+
+	// err := db.Model(&user).Association("Languages").Find(&user.Languages)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	err := db.Model(&user).Preload("Languages").Find(&user).Error
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(user)
+}
+
+func Joinss() {
+	var user User = User{}
+	err := db.Model(&user).
+		Joins("Company.CompanyExtra").Find(&user).Error
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%+v\n", user)
 }
 
 func delManyToManyAssociations() {

@@ -7,10 +7,15 @@ import (
 	"github.com/kackerx/go-mall/common/middleware"
 )
 
-func RegisterRoute(engin *gin.Engine, userHandler *handler.UserHandler) {
+func RegisterRoute(
+	engin *gin.Engine,
+	userHandler *handler.UserHandler,
+	commodityHandler *handler.CommodityHandler,
+) {
 	engin.Use(middleware.StartTrace(), middleware.LogAccess(), middleware.GinPanicRecovery())
 	routeGroup := engin.Group("")
 
-	RegisterBuildingRoutes(routeGroup)
-	RegisterUserRoutes(routeGroup, userHandler)
+	registerBuildingRoutes(routeGroup)
+	registerUserRoutes(routeGroup, userHandler)
+	registerCommodityRoutes(routeGroup, commodityHandler)
 }

@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"testing"
 	"time"
+
+	"github.com/kackerx/go-mall/common/util"
 )
 
 func TestFoo(t *testing.T) {
@@ -35,4 +37,9 @@ func foo(ctx context.Context) {
 	case <-ctx.Done():
 		fmt.Println("son cancel")
 	}
+}
+
+func TestUtil(t *testing.T) {
+	// fmt.Println(util.MaskEmail("kingvstr@hotmail.com"))
+	fmt.Println(util.MaskRealName("王凯是旋"))
 }

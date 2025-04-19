@@ -1,0 +1,875 @@
+[
+  {
+    "id": 1,
+    "level": 1,
+    "parent_id": 0,
+    "name": "家电 数码 手机",
+    "icon_img": "",
+    "rank": 100,
+    "is_del": 0
+  },
+  {
+    "id": 2,
+    "level": 1,
+    "parent_id": 0,
+    "name": "女装 男装 穿搭",
+    "icon_img": "",
+    "rank": 90,
+    "is_del": 0
+  },
+  {
+    "id": 3,
+    "level": 2,
+    "parent_id": 1,
+    "name": "家电",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 4,
+    "level": 2,
+    "parent_id": 1,
+    "name": "数码",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 5,
+    "level": 2,
+    "parent_id": 1,
+    "name": "手机",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 6,
+    "level": 3,
+    "parent_id": 3,
+    "name": "生活电器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 7,
+    "level": 3,
+    "parent_id": 3,
+    "name": "厨房电器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 8,
+    "level": 3,
+    "parent_id": 3,
+    "name": "扫地机器人",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 9,
+    "level": 3,
+    "parent_id": 3,
+    "name": "吸尘器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 10,
+    "level": 3,
+    "parent_id": 3,
+    "name": "取暖器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 11,
+    "level": 3,
+    "parent_id": 3,
+    "name": "豆浆机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 12,
+    "level": 3,
+    "parent_id": 3,
+    "name": "暖风机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 13,
+    "level": 3,
+    "parent_id": 3,
+    "name": "加湿器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 14,
+    "level": 3,
+    "parent_id": 3,
+    "name": "蓝牙音箱",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 15,
+    "level": 3,
+    "parent_id": 3,
+    "name": "烤箱",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 16,
+    "level": 3,
+    "parent_id": 3,
+    "name": "卷发器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 17,
+    "level": 3,
+    "parent_id": 3,
+    "name": "空气净化器",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 18,
+    "level": 3,
+    "parent_id": 4,
+    "name": "游戏主机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 19,
+    "level": 3,
+    "parent_id": 4,
+    "name": "数码精选",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 20,
+    "level": 3,
+    "parent_id": 4,
+    "name": "平板电脑",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 21,
+    "level": 3,
+    "parent_id": 4,
+    "name": "苹果 Apple",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 22,
+    "level": 3,
+    "parent_id": 4,
+    "name": "电脑主机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 23,
+    "level": 3,
+    "parent_id": 4,
+    "name": "数码相机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 24,
+    "level": 3,
+    "parent_id": 4,
+    "name": "电玩动漫",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 25,
+    "level": 3,
+    "parent_id": 4,
+    "name": "单反相机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 26,
+    "level": 3,
+    "parent_id": 4,
+    "name": "键盘鼠标",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 27,
+    "level": 3,
+    "parent_id": 4,
+    "name": "无人机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 28,
+    "level": 3,
+    "parent_id": 4,
+    "name": "二手电脑",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 29,
+    "level": 3,
+    "parent_id": 4,
+    "name": "二手手机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 30,
+    "level": 3,
+    "parent_id": 5,
+    "name": "iPhone 11",
+    "icon_img": "",
+    "rank": 89,
+    "is_del": 0
+  },
+  {
+    "id": 31,
+    "level": 3,
+    "parent_id": 5,
+    "name": "荣耀手机",
+    "icon_img": "",
+    "rank": 99,
+    "is_del": 0
+  },
+  {
+    "id": 32,
+    "level": 3,
+    "parent_id": 5,
+    "name": "华为手机",
+    "icon_img": "",
+    "rank": 98,
+    "is_del": 0
+  },
+  {
+    "id": 33,
+    "level": 3,
+    "parent_id": 5,
+    "name": "苹果 iPhone",
+    "icon_img": "",
+    "rank": 88,
+    "is_del": 0
+  },
+  {
+    "id": 34,
+    "level": 3,
+    "parent_id": 5,
+    "name": "华为 Mate 20",
+    "icon_img": "",
+    "rank": 79,
+    "is_del": 1
+  },
+  {
+    "id": 35,
+    "level": 3,
+    "parent_id": 5,
+    "name": "华为 P30",
+    "icon_img": "",
+    "rank": 97,
+    "is_del": 0
+  },
+  {
+    "id": 36,
+    "level": 3,
+    "parent_id": 5,
+    "name": "华为 P30 Pro",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 37,
+    "level": 3,
+    "parent_id": 5,
+    "name": "小米手机",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 38,
+    "level": 3,
+    "parent_id": 5,
+    "name": "红米",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 39,
+    "level": 3,
+    "parent_id": 5,
+    "name": "OPPO",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 40,
+    "level": 3,
+    "parent_id": 5,
+    "name": "一加",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 41,
+    "level": 3,
+    "parent_id": 5,
+    "name": "小米 MIX",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 42,
+    "level": 3,
+    "parent_id": 5,
+    "name": "Reno",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 43,
+    "level": 3,
+    "parent_id": 5,
+    "name": "vivo",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 44,
+    "level": 3,
+    "parent_id": 5,
+    "name": "手机以旧换新",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 45,
+    "level": 1,
+    "parent_id": 0,
+    "name": "运动 户外 乐器",
+    "icon_img": "",
+    "rank": 97,
+    "is_del": 0
+  },
+  {
+    "id": 46,
+    "level": 1,
+    "parent_id": 0,
+    "name": "游戏 动漫 影视",
+    "icon_img": "",
+    "rank": 96,
+    "is_del": 0
+  },
+  {
+    "id": 47,
+    "level": 1,
+    "parent_id": 0,
+    "name": "家具 家饰 家纺",
+    "icon_img": "",
+    "rank": 98,
+    "is_del": 0
+  },
+  {
+    "id": 48,
+    "level": 1,
+    "parent_id": 0,
+    "name": "美妆 清洁 宠物",
+    "icon_img": "",
+    "rank": 94,
+    "is_del": 0
+  },
+  {
+    "id": 49,
+    "level": 1,
+    "parent_id": 0,
+    "name": "工具 装修 建材",
+    "icon_img": "",
+    "rank": 93,
+    "is_del": 0
+  },
+  {
+    "id": 50,
+    "level": 1,
+    "parent_id": 0,
+    "name": "test",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 51,
+    "level": 1,
+    "parent_id": 0,
+    "name": "玩具 孕产 用品",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 52,
+    "level": 1,
+    "parent_id": 0,
+    "name": "鞋靴 箱包 配件",
+    "icon_img": "",
+    "rank": 91,
+    "is_del": 0
+  },
+  {
+    "id": 53,
+    "level": 2,
+    "parent_id": 2,
+    "name": "女装",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 54,
+    "level": 2,
+    "parent_id": 2,
+    "name": "男装",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 55,
+    "level": 2,
+    "parent_id": 2,
+    "name": "穿搭",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 56,
+    "level": 2,
+    "parent_id": 47,
+    "name": "家具",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 57,
+    "level": 2,
+    "parent_id": 47,
+    "name": "家饰",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 58,
+    "level": 2,
+    "parent_id": 47,
+    "name": "家纺",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 59,
+    "level": 2,
+    "parent_id": 45,
+    "name": "运动",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 60,
+    "level": 2,
+    "parent_id": 45,
+    "name": "户外",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 61,
+    "level": 2,
+    "parent_id": 45,
+    "name": "乐器",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 62,
+    "level": 3,
+    "parent_id": 53,
+    "name": "外套",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 63,
+    "level": 3,
+    "parent_id": 56,
+    "name": "沙发",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 64,
+    "level": 3,
+    "parent_id": 59,
+    "name": "跑鞋",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 65,
+    "level": 2,
+    "parent_id": 46,
+    "name": "游戏",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 66,
+    "level": 2,
+    "parent_id": 46,
+    "name": "动漫",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 67,
+    "level": 2,
+    "parent_id": 46,
+    "name": "影视",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 68,
+    "level": 3,
+    "parent_id": 65,
+    "name": "LOL",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 69,
+    "level": 2,
+    "parent_id": 48,
+    "name": "美妆",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 70,
+    "level": 2,
+    "parent_id": 48,
+    "name": "宠物",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 71,
+    "level": 2,
+    "parent_id": 48,
+    "name": "清洁",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 72,
+    "level": 3,
+    "parent_id": 69,
+    "name": "口红",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 73,
+    "level": 2,
+    "parent_id": 49,
+    "name": "工具",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 74,
+    "level": 2,
+    "parent_id": 49,
+    "name": "装修",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 75,
+    "level": 2,
+    "parent_id": 49,
+    "name": "建材",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 76,
+    "level": 3,
+    "parent_id": 73,
+    "name": "转换器",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 77,
+    "level": 2,
+    "parent_id": 50,
+    "name": "珠宝",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 78,
+    "level": 2,
+    "parent_id": 50,
+    "name": "金饰",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 79,
+    "level": 2,
+    "parent_id": 50,
+    "name": "眼镜",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 80,
+    "level": 3,
+    "parent_id": 77,
+    "name": "钻石",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 81,
+    "level": 2,
+    "parent_id": 52,
+    "name": "鞋靴",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 82,
+    "level": 2,
+    "parent_id": 52,
+    "name": "箱包",
+    "icon_img": "",
+    "rank": 9,
+    "is_del": 0
+  },
+  {
+    "id": 83,
+    "level": 2,
+    "parent_id": 52,
+    "name": "配件",
+    "icon_img": "",
+    "rank": 8,
+    "is_del": 0
+  },
+  {
+    "id": 84,
+    "level": 3,
+    "parent_id": 81,
+    "name": "休闲鞋",
+    "icon_img": "",
+    "rank": 10,
+    "is_del": 0
+  },
+  {
+    "id": 85,
+    "level": 3,
+    "parent_id": 69,
+    "name": "气垫",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 86,
+    "level": 3,
+    "parent_id": 69,
+    "name": "美白",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 87,
+    "level": 3,
+    "parent_id": 69,
+    "name": "隔离霜",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 88,
+    "level": 3,
+    "parent_id": 69,
+    "name": "粉底",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 89,
+    "level": 3,
+    "parent_id": 69,
+    "name": "腮红",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 90,
+    "level": 3,
+    "parent_id": 69,
+    "name": "睫毛膏",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 91,
+    "level": 3,
+    "parent_id": 69,
+    "name": "香水",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 92,
+    "level": 3,
+    "parent_id": 69,
+    "name": "面膜",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 93,
+    "level": 1,
+    "parent_id": 0,
+    "name": "测试分类",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 94,
+    "level": 1,
+    "parent_id": 0,
+    "name": "测试分类2",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 95,
+    "level": 2,
+    "parent_id": 94,
+    "name": "测试分类2-1",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 1
+  },
+  {
+    "id": 96,
+    "level": 2,
+    "parent_id": 51,
+    "name": "玩具",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  },
+  {
+    "id": 97,
+    "level": 3,
+    "parent_id": 96,
+    "name": "机器人",
+    "icon_img": "",
+    "rank": 0,
+    "is_del": 0
+  }
+]

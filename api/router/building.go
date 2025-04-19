@@ -7,7 +7,7 @@ import (
 	"github.com/kackerx/go-mall/common/middleware"
 )
 
-func RegisterBuildingRoutes(rg *gin.RouterGroup) {
+func registerBuildingRoutes(rg *gin.RouterGroup) {
 	g := rg.Group("/building/")
 
 	g.GET("ping", handler.TestErr)

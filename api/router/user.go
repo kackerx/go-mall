@@ -7,7 +7,7 @@ import (
 	"github.com/kackerx/go-mall/common/middleware"
 )
 
-func RegisterUserRoutes(rg *gin.RouterGroup, userHandler *handler.UserHandler) {
+func registerUserRoutes(rg *gin.RouterGroup, userHandler *handler.UserHandler) {
 	g := rg.Group("/user/")
 
 	g.POST("register", userHandler.RegisterUser)

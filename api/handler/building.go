@@ -8,6 +8,7 @@ import (
 	"github.com/kackerx/go-mall/api/request"
 	"github.com/kackerx/go-mall/common/app"
 	"github.com/kackerx/go-mall/common/errcode"
+	"github.com/kackerx/go-mall/common/logger"
 	"github.com/kackerx/go-mall/dal/dao"
 	"github.com/kackerx/go-mall/library"
 	"github.com/kackerx/go-mall/logic/appservice"
